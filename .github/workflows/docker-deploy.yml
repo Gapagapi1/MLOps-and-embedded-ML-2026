@@ -36,6 +36,7 @@ jobs:
         with:
           host: ${{ secrets.VM_HOST }}
           username: ${{ secrets.VM_USER }}
+          password: ${{ secrets.VM_PASS }}
           script: |
             echo "Pulling latest Docker image..."
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/fastapi_mini_project:latest
