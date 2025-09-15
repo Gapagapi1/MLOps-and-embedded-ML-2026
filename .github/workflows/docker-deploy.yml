@@ -25,7 +25,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./fastapi_mini_project
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/fastapi_mini_project:latest
