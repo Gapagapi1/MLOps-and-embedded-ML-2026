@@ -31,3 +31,21 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/fastapi_mini_project:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/fastapi_mini_project:${{ github.sha }}
 
+      - name: Deploy to VM via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          script: |
+            echo "Pulling latest Docker image..."
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/fastapi_mini_project:latest
+
+            echo "Stopping and removing existing container (if any)..."
+            docker stop fastapi_mini_project || true
+            docker rm fastapi_mini_project || true
+
+            echo "Starting new container..."
+            docker run -d --restart unless-stopped --name fastapi_mini_project -p 5212:5212 ${{ secrets.DOCKERHUB_USERNAME }}/fastapi_mini_project:latest
+
+
+
