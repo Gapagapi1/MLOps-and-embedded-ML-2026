@@ -1,0 +1,7 @@
+# Python 3.11
+
+jupyterlab
+eurybia
+alibi-detect[tensorflow]
+tensorflow
+pip-system-certs
