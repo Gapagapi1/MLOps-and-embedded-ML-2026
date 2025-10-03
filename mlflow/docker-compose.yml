@@ -1,0 +1,27 @@
+services:
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:latest
+    container_name: mlflow
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/mlruns
+      - ./mlflow_db:/mlflow_db
+    command: >
+      mlflow server
+      --host 0.0.0.0
+      --port 5000
+      --backend-store-uri sqlite:////mlflow_db/mlflow.db
+      --serve-artifacts
+      --artifacts-destination /mlruns
+
+  model-api:
+    build: .
+    container_name: model-api
+    depends_on:
+      - mlflow
+    ports:
+      - "8000:8000"
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+      - INITIAL_MODEL_URI=models:/iris-model/1
