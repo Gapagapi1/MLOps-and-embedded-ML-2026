@@ -6,7 +6,7 @@ TP1:
 
 TP2: ![mlflow](./mlflow)
 
-TP3: ![mlflow](./datadrift)
+TP3: ![datadrift](./datadrift)
 
 ## Machine learning in production I: embedding a model in a backend
 ![diagram1](diagram1.png)
